@@ -63,13 +63,13 @@ extension Application {
         headers: HTTPHeaders,
         data: T
         ) throws where T: Content {
-        try self.sendRequest(to: path,
+        _ = try self.sendRequest(to: path,
                              method: method,
                              headers: headers,
                              body: data)
     }
     
-    func getRespopnse<C, T>(
+    func getResponse<C, T>(
         to path: String,
         method: HTTPMethod = .GET,
         headers: HTTPHeaders = .init(),
@@ -90,7 +90,7 @@ extension Application {
         decodeTo type: T.Type
         ) throws -> T where T: Decodable {
         let emptyContent: EmptyContent? = nil
-        return try self.getRespopnse(to: path,
+        return try self.getResponse(to: path,
                                      method: method,
                                      headers: headers,
                                      data: emptyContent,
