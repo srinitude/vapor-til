@@ -1,5 +1,5 @@
-import FluentPostgreSQL
 @testable import App
+import FluentPostgreSQL
 
 extension User {
     static func create(
@@ -12,22 +12,3 @@ extension User {
     }
 }
 
-extension Acronym {
-    static func create(
-        short: String = "TIL",
-        long: String = "Today I Learned",
-        user: User? = nil,
-        on connection: PostgreSQLConnection
-        ) throws -> Acronym {
-        var acronymsUser = user
-        
-        if acronymsUser == nil {
-            acronymsUser = try User.create(on: connection)
-        }
-        
-        let acronym = Acronym(short: short,
-                              long: long,
-                              userID: acronymsUser!.id!)
-        return try acronym.save(on: connection).wait()
-    }
-}
